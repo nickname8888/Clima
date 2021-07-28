@@ -3,15 +3,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
-  NetworkHelper({required this.url});
+  NetworkHelper(this.url);
+
   final String url;
 
-  Future getWeatherData() async {
-    var newUrl = Uri.parse(url);
-    http.Response response = await http.get(newUrl);
+  Future getData() async {
+    var uri = Uri.parse(url);
+    http.Response response = await http.get(uri);
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      String data = response.body;
+
+      return jsonDecode(data);
     } else {
       print(response.statusCode);
     }
